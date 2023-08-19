@@ -5,4 +5,6 @@ const router = express.Router();
 
 router.get('/', citiesController.getCities);
 
+router.post('/', citiesController.createCity);
+
 export default router;
