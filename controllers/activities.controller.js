@@ -1,7 +1,7 @@
-import User from '../models/User.js';
+import Activity from '../models/Activity.js';
 
 const controller = {
-    getUsers: async (req, res) => {
+    getActivities: async (req, res) => {
         let queries = {};
 
         if(req.query.name){
@@ -9,95 +9,95 @@ const controller = {
         }
 
         try {
-            const users = await User.find(queries);
+            const activities = await Activity.find(queries);
 
-            if(users.length > 0) {
+            if(activities.length > 0) {
                 return res.status(200).json({
                     success: true,
-                    users
+                    activities
                 });
             }
 
             return res.status(404).json({
                 success: false,
-                message: 'No users were found'
+                message: 'No activities were found'
             });
 
         } catch (error) {
             console.log(error);
             return res.status(500).json({
                 success: false,
-                message: 'Error getting the users'
+                message: 'Error getting the activities'
             });
         }
     },
-    getUserById: async(req, res) => {
+    getActivityById: async(req, res) => {
         try {
-            const user = await User.findById(req.params.id);
+            const activity = await Activity.findById(req.params.id);
 
-            if(user){
+            if(activity){
                 return res.status(200).json({}).json({
                     success: true,
-                    user
+                    activity
                 });
             }
 
             return res.status(404).json({
                 success: false,
-                message: 'User not found'
+                message: 'activity not found'
             });
 
         } catch (error) {
             return res.status(500).json({
                 success: false,
-                message: 'Error getting the user'
+                message: 'Error getting the activity'
             });
         }
     },
-    createUser: async (req, res) => {
+    createActivity: async (req, res) => {
         try {
-            const newUser = await User.create(req.body);
+            const newActivity = await Activity.create(req.body);
 
             return res.status(200).json({
                 success: true,
-                message: 'User created successfully'
+                message: 'Activity created successfully'
             });
 
         } catch (error) {
             console.log(error);
             return res.status(500).json({
                 success: false,
-                message: 'Error creating user'
+                message: 'Error creating activity'
             });
         }
     },
-    updateUser: async (req, res) => {
+    updateActivity: async (req, res) => {
         try {
-            await User.updateOne({_id: req.params.id}, req.body);
+            await Activity.updateOne({_id: req.params.id}, req.body);
             return res.status(200).json({
                 success: true,
-                message: 'User updated successfully'
+                message: 'Activity updated successfully'
             });
         } catch (error) {
             console.log(error);
             return res.status(500).json({
                 success: false,
-                message: 'Error updating user'
+                message: 'Error updating activity'
             });
         }
     },
-    deleteUser: async (req, res) => {
+    deleteActivity: async (req, res) => {
         try {
-            await User.deleteOne({_id: req.params.id}, req.body);
+            await Activity.deleteOne({_id: req.params.id}, req.body);
             return res.status(200).json({
                 success: true,
-                message: 'User deleted successfully'
+                message: 'Activity deleted successfully'
             });
         } catch (error) {
             console.log(error);
             return res.status(500).json({
                 success: false,
-                message: 'Error deleting user'
+                message: 'Error deleting activity'
             });
         }
     }
